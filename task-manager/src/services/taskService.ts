@@ -3,10 +3,9 @@ import type { Task, CreateTaskInput, UpdateTaskInput } from '../types/Task';
 const API_BASE = '/api';
 
 export const taskService = {
-  async getAllTasks(statusFilter?: string, priorityFilter?: string): Promise<Task[]> {
+  async getAllTasks(statusFilter?: string): Promise<Task[]> {
     const params = new URLSearchParams();
     if (statusFilter) params.append('status', statusFilter);
-    if (priorityFilter) params.append('priority', priorityFilter);
 
     const url = params.toString()
       ? `${API_BASE}/tasks?${params.toString()}`
