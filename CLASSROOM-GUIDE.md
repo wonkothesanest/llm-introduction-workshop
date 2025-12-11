@@ -29,18 +29,48 @@ workshop/  (main git repository)
 └── research-docs/               # Background materials
 ```
 
-### Git Branches
+### Git Branches - Exercise Checkpoints
 
-**Main branch:** Contains the complete working application with all features
-- Solar troubleshooting portal
-- Priority system
-- Tests included
-- Full CLAUDE.md documentation
+The repository uses git branches to provide checkpoints for each exercise. Students who are late, encounter issues, or need to skip ahead can checkout the appropriate branch to continue:
+
+**Branch Structure:**
+- **`main`** - Starting point (Exercise 1 begins here)
+  - Basic task manager app
+  - NO CLAUDE.md
+  - NO priority feature
+  - NO tests
+
+- **`exercise-1-complete`** - After completing Exercise 1
+  - Basic task manager app
+  - ✅ CLAUDE.md documentation
+  - NO priority feature
+  - NO tests
+
+- **`exercise-2-complete`** - After completing Exercise 2
+  - Task manager app
+  - ✅ CLAUDE.md documentation
+  - ✅ Priority system (high/medium/low)
+  - NO tests
+
+- **`exercise-3-complete`** - After completing Exercise 3 (fully complete)
+  - Task manager app
+  - ✅ CLAUDE.md documentation
+  - ✅ Priority system
+  - ✅ Test coverage
+
+**Usage:**
+```bash
+# Student is late or stuck? Jump to next exercise:
+git checkout exercise-1-complete  # Start Exercise 2 from here
+git checkout exercise-2-complete  # Start Exercise 3 from here
+git checkout exercise-3-complete  # View completed solution
+```
 
 This allows you to:
-1. **Demo the complete app** to show what participants will build
-2. **Reference the full solution** when helping stuck participants
-3. **Share one repository** that contains everything
+1. **Handle late arrivals** - Students can checkout the current exercise state
+2. **Recover from mistakes** - If a student breaks their code, they can reset to a checkpoint
+3. **Enable flexible pacing** - Different students can work at different speeds
+4. **Demo completed features** - Checkout `exercise-3-complete` to show the final app
 
 ### For Classroom Use
 
@@ -48,29 +78,37 @@ This allows you to:
 
 **You demonstrate, participants observe:**
 
-1. Clone and show the complete working app:
+1. Clone the repository:
 ```bash
 git clone <your-repo-url>
-cd workshop/task-manager
+cd workshop
+```
+
+2. Demo the complete application first (so students see what they'll build):
+```bash
+git checkout exercise-3-complete
+cd task-manager
 npm install
 npm run dev
 ```
 
-2. Open browser to http://localhost:5173 and demo:
+3. Open browser to http://localhost:5173 and demo:
    - Creating troubleshooting steps
    - Priority badges (High/Medium/Low)
    - Status tracking
    - Filtering by status and priority
 
-3. In a separate terminal, demonstrate Claude Code:
+4. Return to starting point and demonstrate Claude Code:
 ```bash
+git checkout main
 claude
 ```
 
-4. Work through exercises live:
+5. Work through exercises live:
    - Show how to analyze codebase (Exercise 1)
-   - Add a new feature with Claude (use Exercise 2 as guide)
+   - Add priority feature with Claude (Exercise 2)
    - Generate and validate tests (Exercise 3)
+   - Use checkpoint branches when needed
 
 #### Option 2: Hands-On Workshop
 
@@ -78,18 +116,22 @@ claude
 
 1. **Pre-workshop:**
    - Share repository URL
-   - Have participants clone and run `npm install`
+   - Have participants clone and run `npm install` from task-manager/
+   - Verify everyone starts on `main` branch
    - Verify everyone can start the app
    - Verify everyone has Claude Code installed
 
 2. **During workshop:**
+   - Everyone starts on `main` branch
    - Work through Exercise 1 together
    - Pair program through Exercise 2
    - Group exercise for Exercise 3
+   - **Late arrivals:** Checkout the appropriate exercise branch to catch up
 
-3. **Reference the complete code:**
-   - When stuck, participants can check task-manager/ for working examples
-   - solutions/CLAUDE-example.md shows complete documentation
+3. **Handle different pacing:**
+   - Fast students: Can move ahead or explore bonus challenges
+   - Stuck students: Checkout the next exercise branch to continue
+   - Late students: Checkout current exercise state to join the class
 
 #### Option 3: Self-Paced Learning
 
@@ -100,30 +142,42 @@ claude
 3. Participants work through exercises at their own pace
 4. Can reference complete working code when needed
 
-### Using the Complete Working Application
+### Using Exercise Checkpoint Branches
 
-The current `main` branch has everything working. To show different exercise states:
+Each branch represents the completed state of that exercise. Use these for:
+- Late arrivals who need to catch up
+- Students who encounter blocking errors
+- Demonstrating the completed features
+- Resetting if students break their code
 
-**Starting State (for Exercise 1):**
+**Starting Exercise 1:**
 ```bash
-# Remove CLAUDE.md to simulate starting point
-rm task-manager/CLAUDE.md
-
-# Now participants can create it themselves
-claude
-# Follow EXERCISE-1.md
+git checkout main
+cd task-manager
+npm install
+npm run dev
+# App works, but no CLAUDE.md, no priority, no tests
+# Follow exercises/EXERCISE-1.md
 ```
 
-**After Exercise 1 (for Exercise 2):**
+**Starting Exercise 2 (after completing Exercise 1):**
 ```bash
-# CLAUDE.md exists, but priority feature doesn't yet
-# Participants will add priority in Exercise 2
+git checkout exercise-1-complete
+# CLAUDE.md exists, now add priority feature
+# Follow exercises/EXERCISE-2.md
 ```
 
-**After Exercise 2 (for Exercise 3):**
+**Starting Exercise 3 (after completing Exercise 2):**
 ```bash
-# Priority feature exists, now add tests
-# Participants will create taskService.test.ts
+git checkout exercise-2-complete
+# CLAUDE.md and priority feature exist, now add tests
+# Follow exercises/EXERCISE-3.md
+```
+
+**Viewing the complete solution:**
+```bash
+git checkout exercise-3-complete
+# All features complete: CLAUDE.md + priority + tests
 ```
 
 ### Demonstration Script
@@ -264,8 +318,16 @@ claude
 
 **Reset to starting state:**
 ```bash
-rm task-manager/CLAUDE.md
-# Start with Exercise 1
+git checkout main
+cd task-manager
+# Starts Exercise 1 from beginning
+```
+
+**Jump to exercise checkpoint:**
+```bash
+git checkout exercise-1-complete  # After Ex 1
+git checkout exercise-2-complete  # After Ex 2
+git checkout exercise-3-complete  # After Ex 3 (complete)
 ```
 
 **Push to your org:**
