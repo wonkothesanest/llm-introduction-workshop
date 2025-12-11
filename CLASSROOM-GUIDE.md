@@ -10,10 +10,9 @@ The workshop repository is now organized at the top level for easy classroom dis
 workshop/  (main git repository)
 ├── README.md                    # Workshop overview
 ├── QUICKSTART.md                # 5-minute setup
-├── FACILITATOR.md               # Instructor guide
 ├── CLASSROOM-GUIDE.md           # This file
-├── notes.md                     # Your workshop notes
-├── CLAUDE.md_comparison/        # CLAUDE.md examples
+├── TROUBLESHOOTING.md           # Common issues
+├── WORKSHOP_SETUP.md            # Setup instructions
 │
 ├── exercises/                   # Exercise instructions
 │   ├── EXERCISE-1.md
@@ -25,8 +24,11 @@ workshop/  (main git repository)
 │   ├── server/
 │   └── package.json
 │
-├── solutions/                   # Reference solutions
-└── research-docs/               # Background materials
+└── teachers-notes/              # Instructor materials (not for students)
+    ├── FACILITATOR.md           # Instructor guide
+    ├── notes.md                 # Your workshop notes
+    ├── solutions/               # Reference solutions
+    └── CLAUDE.md_comparison/    # CLAUDE.md examples
 ```
 
 ### Git Branches - Exercise Checkpoints
@@ -277,10 +279,12 @@ You can customize for your specific class:
 
 ### Support Materials
 
-- **notes.md:** Your personal workshop notes
-- **CLAUDE.md_comparison/:** Different CLAUDE.md examples
-- **research-docs/:** Background reading on Claude Code
-- **solutions/:** Reference implementations
+All instructor materials are in the `teachers-notes/` directory:
+
+- **teachers-notes/FACILITATOR.md:** Detailed instructor guide with timing and tips
+- **teachers-notes/notes.md:** Your personal workshop notes
+- **teachers-notes/CLAUDE.md_comparison/:** Different CLAUDE.md examples to show students
+- **teachers-notes/solutions/:** Reference implementations and example CLAUDE.md
 
 ### Post-Workshop Follow-Up
 
