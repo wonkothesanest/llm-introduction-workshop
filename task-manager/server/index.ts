@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import type { Task, CreateTaskInput, UpdateTaskInput, Priority } from '../src/types/Task';
+import type { Task, CreateTaskInput, UpdateTaskInput } from '../src/types/Task';
 
 const app = express();
 const PORT = 3001;
@@ -15,7 +15,6 @@ let tasks: Task[] = [
     title: 'Check main solar breaker',
     description: 'Verify the solar breaker in your main electrical panel is in the ON position. It should be labeled "Solar" or "PV".',
     status: 'done',
-    priority: 'high',
     createdAt: new Date('2024-01-01').toISOString(),
     updatedAt: new Date('2024-01-01').toISOString()
   },
@@ -24,7 +23,6 @@ let tasks: Task[] = [
     title: 'Verify inverter display is on',
     description: 'Check if your inverter display screen is lit up and showing information. Look for any error codes or warning lights.',
     status: 'in-progress',
-    priority: 'high',
     createdAt: new Date('2024-01-02').toISOString(),
     updatedAt: new Date('2024-01-03').toISOString()
   },
@@ -33,7 +31,6 @@ let tasks: Task[] = [
     title: 'Confirm internet connectivity',
     description: 'Ensure your home internet is working. The monitoring system needs internet to report production data.',
     status: 'todo',
-    priority: 'medium',
     createdAt: new Date('2024-01-03').toISOString(),
     updatedAt: new Date('2024-01-03').toISOString()
   },
@@ -42,7 +39,6 @@ let tasks: Task[] = [
     title: 'Check for physical damage or debris',
     description: 'Visually inspect your solar panels from the ground for any obvious damage, heavy debris, or shading from new tree growth.',
     status: 'todo',
-    priority: 'low',
     createdAt: new Date('2024-01-03').toISOString(),
     updatedAt: new Date('2024-01-03').toISOString()
   }
@@ -52,16 +48,12 @@ let nextId = 5;
 
 // GET /api/tasks - Get all tasks
 app.get('/api/tasks', (req, res) => {
-  const { status, priority } = req.query;
+  const { status } = req.query;
 
   let filteredTasks = tasks;
 
   if (status && typeof status === 'string') {
     filteredTasks = filteredTasks.filter(task => task.status === status);
-  }
-
-  if (priority && typeof priority === 'string') {
-    filteredTasks = filteredTasks.filter(task => task.priority === priority);
   }
 
   res.json(filteredTasks);
@@ -91,7 +83,6 @@ app.post('/api/tasks', (req, res) => {
     title: input.title,
     description: input.description || '',
     status: 'todo',
-    priority: input.priority || 'medium',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
@@ -116,7 +107,6 @@ app.put('/api/tasks/:id', (req, res) => {
     title: update.title ?? task.title,
     description: update.description ?? task.description,
     status: update.status ?? task.status,
-    priority: update.priority ?? task.priority,
     updatedAt: new Date().toISOString()
   };
 
