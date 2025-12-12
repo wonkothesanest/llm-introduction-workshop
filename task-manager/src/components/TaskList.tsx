@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { Task, TaskStatus, Priority } from '../types/Task';
+import type { Task, TaskStatus } from '../types/Task';
 import { taskService } from '../services/taskService';
 import { TaskItem } from './TaskItem';
 import { CreateTaskForm } from './CreateTaskForm';
@@ -9,18 +9,16 @@ export function TaskList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'all'>('all');
-  const [priorityFilter, setPriorityFilter] = useState<Priority | 'all'>('all');
 
   useEffect(() => {
     loadTasks();
-  }, [statusFilter, priorityFilter]);
+  }, [statusFilter]);
 
   const loadTasks = async () => {
     try {
       setLoading(true);
       const statusValue = statusFilter === 'all' ? undefined : statusFilter;
-      const priorityValue = priorityFilter === 'all' ? undefined : priorityFilter;
-      const data = await taskService.getAllTasks(statusValue, priorityValue);
+      const data = await taskService.getAllTasks(statusValue);
       setTasks(data);
       setError(null);
     } catch (err) {
@@ -76,17 +74,6 @@ export function TaskList() {
             <option value="todo">To Do</option>
             <option value="in-progress">In Progress</option>
             <option value="done">Done</option>
-          </select>
-
-          <label>Priority:</label>
-          <select
-            value={priorityFilter}
-            onChange={(e) => setPriorityFilter(e.target.value as Priority | 'all')}
-          >
-            <option value="all">All</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
           </select>
         </div>
       </div>

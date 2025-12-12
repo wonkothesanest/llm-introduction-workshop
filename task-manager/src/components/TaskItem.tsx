@@ -1,4 +1,4 @@
-import type { Task, TaskStatus, Priority } from '../types/Task';
+import type { Task, TaskStatus } from '../types/Task';
 
 interface TaskItemProps {
   task: Task;
@@ -18,23 +18,11 @@ export function TaskItem({ task, onStatusChange, onDelete }: TaskItemProps) {
     return labels[status];
   };
 
-  const getPriorityLabel = (priority: Priority): string => {
-    const labels: Record<Priority, string> = {
-      'low': 'Low',
-      'medium': 'Medium',
-      'high': 'High'
-    };
-    return labels[priority];
-  };
-
   return (
     <div className={`task-item status-${task.status}`}>
       <div className="task-content">
         <div className="task-header">
           <h3>{task.title}</h3>
-          <span className={`priority-badge priority-${task.priority}`}>
-            {getPriorityLabel(task.priority)} Priority
-          </span>
         </div>
         {task.description && <p>{task.description}</p>}
         <div className="task-meta">
